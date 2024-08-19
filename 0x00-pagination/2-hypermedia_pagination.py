@@ -1,22 +1,24 @@
 #!/usr/bin/env python3
 """
-Server class to paginate a database of popular baby names with hypermedia metadata.
+Server class to paginate a database of popular baby names
+with hypermedia metadata.
 """
 
 import csv
 from typing import List, Dict, Any
 import math
 
+
 def index_range(page: int, page_size: int) -> tuple:
     """
     Return a tuple of size two containing a start index and an end index.
-    
     The start index is inclusive, and the end index is exclusive.
     Page numbers are 1-indexed.
     """
     start_index = (page - 1) * page_size
     end_index = start_index + page_size
     return (start_index, end_index)
+
 
 class Server:
     """Server class to paginate a database of popular baby names."""
@@ -37,16 +39,14 @@ class Server:
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
         Return a list of rows from the dataset based on page and page_size.
-        
         Args:
             page (int): The page number to retrieve.
             page_size (int): The number of items per page.
-        
         Returns:
             List[List]: The list of rows corresponding to the specified page.
         """
-        assert isinstance(page, int) and page > 0, "Page must be a positive integer"
-        assert isinstance(page_size, int) and page_size > 0, "Page size must be a positive integer"
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
 
         start_index, end_index = index_range(page, page_size)
         dataset = self.dataset()
@@ -59,11 +59,9 @@ class Server:
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[str, Any]:
         """
         Return a dictionary with pagination details and the page data.
-        
         Args:
             page (int): The current page number.
             page_size (int): The number of items per page.
-        
         Returns:
             Dict[str, Any]: A dictionary with pagination details.
         """
