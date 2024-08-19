@@ -48,7 +48,8 @@ class Server:
         next_index = index
 
         for _ in range(page_size):
-            while current_index not in indexed_data and current_index < len(self.indexed_dataset()):
+            while current_index not in indexed_data and
+            current_index < len(self.indexed_dataset()):
                 current_index += 1
             if current_index >= len(self.indexed_dataset()):
                 break
