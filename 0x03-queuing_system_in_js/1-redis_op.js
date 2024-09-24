@@ -10,16 +10,20 @@ client
   });
 
 function setNewSchool(schoolName, value) {
-  client.set(schoolName, value, (err, reply) => {
-    redis.print(`Reply: ${reply}`);
-  });
+  client.set(schoolName, value, redis.print);  // Correct usage
 }
+
 function displaySchoolValue(schoolName) {
   client.get(schoolName, (err, reply) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
     console.log(reply);
   });
 }
 
+// Calling the functions
 displaySchoolValue("Holberton");
 setNewSchool("HolbertonSanFrancisco", "100");
 displaySchoolValue("HolbertonSanFrancisco");
